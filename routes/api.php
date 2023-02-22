@@ -2,6 +2,14 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\DireccionClienteController;
+use App\Http\Controllers\GrupoClienteController;
+use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\ProfesionController;
+use App\Http\Controllers\RolController;
+use App\Http\Controllers\TipoDocumentoController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +25,41 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//usuarios
+Route::group(['middleware' => 'auth:api'], function () use ($router) {
+    Route::get('authinfo', [UserController::class, 'getAuthenticated']);
+});
+
+//clientes
+Route::group(['middleware' => 'auth:api'], function () use ($router) {
+    Route::post('cliente/crear', [ClienteController::class, 'store']);
+    Route::post('cliente/{clienteId}/agregar-direccion', [ClienteController::class, 'addAddress']);
+});
+
+//direcciones de clientes
+Route::group(['middleware' => 'auth:api'], function () use ($router) {
+    Route::get('direcciones-cliente/{clienteId}/todos', [DireccionClienteController::class, 'allFromAClient']);
+});
+
+//grupos de cliente
+Route::group(['middleware' => 'auth:api'], function () use ($router) {
+    Route::get('grupos-cliente/seleccion/todos', [GrupoClienteController::class, 'allToSelect']);
+});
+
+//profesiones
+Route::group(['middleware' => 'auth:api'], function () use ($router) {
+    Route::get('profesiones/seleccion/todos', [ProfesionController::class, 'allToSelect']);
+});
+
+//roles
+Route::group(['middleware' => 'auth:api'], function () use ($router) {
+    Route::get('roles', [RolController::class, 'all']);
+    Route::post('rol/crear', [RolController::class, 'store']);
+});
+
+//tipos de documento
+Route::group(['middleware' => 'auth:api'], function () use ($router) {
+    Route::get('tipos-documento/seleccion/todos', [TipoDocumentoController::class, 'allToSelect']);
+});
+

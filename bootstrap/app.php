@@ -41,6 +41,7 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+$app->bind(\App\Services\Contracts\UserInterface::class, \App\Services\UserService::class);
 /*
 |--------------------------------------------------------------------------
 | Return The Application
