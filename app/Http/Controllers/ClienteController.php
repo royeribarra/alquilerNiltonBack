@@ -27,6 +27,12 @@ class ClienteController extends Controller
         return $clientes;
     }
 
+    public function allToSelect()
+    {
+        $clientes = Cliente::all();
+        return $clientes;
+    }
+
     public function store(Request $request)
     {
         $data = $request->all();
@@ -55,5 +61,11 @@ class ClienteController extends Controller
         $data = $request->all();
         $newAddress = $this->direccionClienteService->store($data, $clienteId);
         return $newAddress;
+    }
+
+    public function searchClienteDni(Request $request)
+    {
+        $cliente = Cliente::with(['calificacion', 'tipoCliente'])->where('documentoIdentidad', $request->dni)->first();
+        return $cliente;
     }
 }

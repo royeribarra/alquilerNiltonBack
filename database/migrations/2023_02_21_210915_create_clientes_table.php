@@ -23,6 +23,7 @@ class CreateClientesTable extends Migration
             $table->decimal('credito', 10, 2)->nullable();
             $table->smallInteger('grupoClienteId')->nullable();
             $table->smallInteger('profesionId')->nullable();
+            $table->smallInteger('tipoClienteId')->nullable();
             $table->string('documentoIdentidad')->unique();
             $table->string('tipoDocumentoId')->nullable();
             $table->smallInteger('created_user')->nullable();

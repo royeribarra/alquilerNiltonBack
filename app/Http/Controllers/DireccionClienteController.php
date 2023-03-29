@@ -38,4 +38,26 @@ class DireccionClienteController extends Controller
         ]);
     }
 
+    public function update(Request $request, $direccionId)
+    {
+        $data = $request->all();
+        $address = DireccionCliente::find($direccionId);
+        $address->update($data);
+
+        return response()->json([
+            'state' => true,
+            'message' => "Dirección actualiza correctamente."
+        ]);
+    }
+
+    public function delete($direccionId)
+    {
+        $address = DireccionCliente::find($direccionId);
+        $address->delete();
+        return response()->json([
+            'state' => true,
+            'message' => "Dirección eliminada correctamente."
+        ]);
+    }
+
 }

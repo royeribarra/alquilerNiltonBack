@@ -13,6 +13,7 @@ class Cliente extends Model
         'profesionId',
         'grupoClienteId',
         'tipoDocumentoId',
+        'tipoClienteId',
         'nombres',
         'apellidos',
         'telefono',
@@ -23,15 +24,27 @@ class Cliente extends Model
         'updated_user'
     ];
 
+    public function calificacion() {
+        return $this->hasOne(CalificacionCliente::class, 'clienteId', 'id');
+    }
+
+    public function grupo() {
+        return $this->belongsTo(GrupoCliente::class, 'grupoClienteId', 'id');
+    }
+
     public function profesion() {
         return $this->hasOne(Profesion::class, 'id', 'profesionId');
     }
 
-    public function grupo() {
-        return $this->hasOne(GrupoCliente::class, 'id', 'grupoClienteId');
+    public function tipoCliente() {
+        return $this->belongsTo(TipoCliente::class, 'tipoClienteId', 'id');
     }
 
-    public function documento() {
+    public function tipoDocumento() {
         return $this->hasOne(TipoDocumento::class, 'id', 'tipoDocumentoId');
+    }
+
+    public function ventas() {
+        return $this->hasMany(Registro::class, 'clienteId', 'id');
     }
 }

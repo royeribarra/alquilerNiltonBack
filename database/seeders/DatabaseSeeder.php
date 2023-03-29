@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(GrupoClienteSeeder::class);
         $this->call(ProfesionSeeder::class);
+        $this->call(TipoClienteSeeder::class);
         $this->call(TipoDocumentoSeeder::class);
     }
 }

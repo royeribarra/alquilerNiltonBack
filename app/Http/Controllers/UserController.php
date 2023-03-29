@@ -24,6 +24,12 @@ class UserController extends Controller
         return $usuario;
     }
 
+    public function getUsersTable()
+    {
+        $usuarios = User::paginate(10);
+        return $usuarios;
+    }
+
     public function get(Request $request) 
     {
         $req = $request->all();
@@ -31,8 +37,16 @@ class UserController extends Controller
         return response()->json($users);
     }
 
-    public function store(Request $request) {
-
+    public function store(Request $request) 
+    {
+        $existeUser = User::where('email', $request->email)->first();
+        if($existeUser)
+        {
+            return response()->json([
+                'state'=> false,
+                'message' => 'Usuario con este email ya existe.'
+            ]);
+        }
         $this->userService->create($request->all());           
         return response()->json([
             'state'=> 1,

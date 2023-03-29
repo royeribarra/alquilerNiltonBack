@@ -35,16 +35,25 @@ Route::group(['middleware' => 'auth:api'], function () use ($router) {
 Route::group(['middleware' => 'auth:api'], function () use ($router) {
     Route::post('cliente/crear', [ClienteController::class, 'store']);
     Route::post('cliente/{clienteId}/agregar-direccion', [ClienteController::class, 'addAddress']);
+    Route::get('clientes/seleccion/todos', [ClienteController::class, 'allToSelect']);
+    Route::get('cliente/buscar-dni', [ClienteController::class, 'searchClienteDni']);
 });
 
 //direcciones de clientes
 Route::group(['middleware' => 'auth:api'], function () use ($router) {
     Route::get('direcciones-cliente/{clienteId}/todos', [DireccionClienteController::class, 'allFromAClient']);
+    Route::put('direccion-cliente/{direccionClienteId}/editar', [DireccionClienteController::class, 'update']);
+    Route::delete('direccion-cliente/{direccionClienteId}/eliminar', [DireccionClienteController::class, 'delete']);
 });
 
 //grupos de cliente
 Route::group(['middleware' => 'auth:api'], function () use ($router) {
     Route::get('grupos-cliente/seleccion/todos', [GrupoClienteController::class, 'allToSelect']);
+});
+
+//productos
+Route::group(['middleware' => 'auth:api'], function () use ($router) {
+    Route::get('productos/todos', [ProductoController::class, 'all']);
 });
 
 //profesiones
@@ -63,3 +72,8 @@ Route::group(['middleware' => 'auth:api'], function () use ($router) {
     Route::get('tipos-documento/seleccion/todos', [TipoDocumentoController::class, 'allToSelect']);
 });
 
+//usuarios
+Route::group(['middleware' => 'auth:api'], function () use ($router) {
+    Route::post('usuario/crear', [UserController::class, 'store']);
+    Route::get('usuarios/todos', [UserController::class, 'getUsersTable']);
+});

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\AlquilerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +16,7 @@ use App\Http\Controllers\API\AuthController;
 */
 Route::post('oauth/token', [ AuthController::class, 'login'])->name('api/login');
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('nota-venta/{id}', [AlquilerController::class, 'pdfNotaVenta']);
+Route::get('/hey', function () {
+    return view('alquiler.notaVenta');
 });
